@@ -279,12 +279,31 @@ def replace_md(genotypes):
                 ac[i,j]=np.random.binomial(2,af[i])
     return ac
 
+#def filter_snps(genotypes):
+#    print("filtering SNPs")
+#    tmp=genotypes.count_alleles()
+#    biallel=tmp.is_biallelic().compute()
+#    genotypes=genotypes[biallel,:,:]
+#    genotypes = allel.GenotypeDaskArray(genotypes)
+#    if not args.min_mac==1:
+#        derived_counts=genotypes.count_alleles()[:,1]
+#        ac_filter=[x >= args.min_mac for x in derived_counts]
+#        genotypes=genotypes[ac_filter,:,:]
+#    if args.impute_missing:
+#        ac=replace_md(genotypes)
+#    else:
+#        ac=genotypes.to_allele_counts()[:,:,1]
+#    if not args.max_SNPs==None:
+#        ac=ac[np.random.choice(range(ac.shape[0]),args.max_SNPs,replace=False),:]
+#    print("running on "+str(len(ac))+" genotypes after filtering\n\n\n")
+#    return ac
+
+#filter_snps method from https://github.com/kr-colab/locator.git scripts/locator.py
 def filter_snps(genotypes):
     print("filtering SNPs")
     tmp=genotypes.count_alleles()
-    biallel=tmp.is_biallelic().compute()
+    biallel=tmp.is_biallelic()
     genotypes=genotypes[biallel,:,:]
-    genotypes = allel.GenotypeDaskArray(genotypes)
     if not args.min_mac==1:
         derived_counts=genotypes.count_alleles()[:,1]
         ac_filter=[x >= args.min_mac for x in derived_counts]
