@@ -1,9 +1,8 @@
 # 20230821
 
-# making some changes to this version of locator by clararehmann. I do not have access to a GPU and some of the changes committed to this version use dask and cuda, limiting functionality for me especially in the filter_snps method. I'm going to "frankenstein" the original method for filter_snps which goes directly to a nparray instead of allel.GenotypeDaskArray (around line 285 locator.py in https://github.com/clararehmann/locator.git).
+# making some manual changes to this version of locator by clararehmann. I'm using "matrix" as an input, but the new fuctionality to allow .zarr input loads a GenotypeDaskArray (around line 285 locator.py in https://github.com/clararehmann/locator.git), which is then passed into the method filter_snps and throws error: AttributeError: 'numpy.ndarray' object has no attribute 'compute' and happens when executing: tmp=genotypes.count_alleles() and biallel=tmp.is_biallelic().compute(). This can be fixed if GenotypeDaskArray is only applied to .zarr inputs rather than all inputs. In this version, I "frankenstein" the original method for filter_snps from https://github.com/kr-colab/locator.git scripts/locator.py which goes directly to a nparray instead of allel.GenotypeDaskArray. 
 
-
-
+--------------------------------
 
 `Locator` is a supervised machine learning method for predicting the geographic origin of a sample from
 genotype or sequencing data. A manuscript describing it and its use can be found at https://elifesciences.org/articles/54507
