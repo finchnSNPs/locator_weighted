@@ -1,6 +1,6 @@
 # 20230821
 
-I'm making some manual changes to this version of locator.py in https://github.com/clararehmann/locator.git. I'm using "matrix" as an input, which does not generate a GenotypeDaskArray. Then the method filter_snps assumes that genotypes is a DaskArray and runs .compute() on it, causing the crash AttributeError: 'numpy.ndarray' object has no attribute 'compute'. This can be fixed if filter_snps supports both Dask and ndarrays. In this version, I use the original method for filter_snps version from https://github.com/kr-colab/locator.git scripts/locator.py which does not allow Dask. 
+I'm making changes to this version of locator.py in https://github.com/clararehmann/locator.git. I'm using "matrix" as an input, which does not generate a GenotypeDaskArray. Then the method filter_snps assumes that genotypes is a DaskArray and runs .compute() on it, causing the crash AttributeError: 'numpy.ndarray' object has no attribute 'compute'. This can be fixed if filter_snps supports both Dask and ndarrays. In this version, I use the original method for filter_snps version from https://github.com/kr-colab/locator.git scripts/locator.py which does not allow Dask. 
 
 --------------------------------
 
